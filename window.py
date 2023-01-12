@@ -6,7 +6,7 @@ pygame.init()
 def display(board):
     size = 480, 480
     window = pygame.display.set_mode(size)
-    board_img = pygame.image.load('board.png')
+    board_img = pygame.image.load('images/board.png')
     window.blit(board_img, (0, 0))
     for row in range(len(board)):
         for piece in range(len(board[row])):

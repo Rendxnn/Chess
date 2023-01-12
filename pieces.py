@@ -8,9 +8,9 @@ class Pawn:
         self.initial = True
         self.en_passant = False
         if self.colour == 'white':
-            self.image = pygame.image.load('white pawn.png')
+            self.image = pygame.image.load('images/white pawn.png')
         else:
-            self.image = pygame.image.load('black pawn.png')
+            self.image = pygame.image.load('images/black pawn.png')
 
     def check_moves(self, row, column, board):
         moves = []
@@ -41,9 +41,9 @@ class Rook:
         self.colour = colour
         self.initial = True
         if self.colour == 'white':
-            self.image = pygame.image.load('white rook.png')
+            self.image = pygame.image.load('images/white rook.png')
         else:
-            self.image = pygame.image.load('black rook.png')
+            self.image = pygame.image.load('images/black rook.png')
 
     def check_moves(self, row, column, board):
         moves = []
@@ -81,9 +81,9 @@ class Knight:
         self.name = colour + ' knight'
         self.colour = colour
         if self.colour == 'white':
-            self.image = pygame.image.load('white knight.png')
+            self.image = pygame.image.load('images/white knight.png')
         else:
-            self.image = pygame.image.load('black knight.png')
+            self.image = pygame.image.load('images/black knight.png')
 
     def check_moves(self, row, column, board):
         moves = []
@@ -123,9 +123,9 @@ class Bishop:
         self.name = colour + ' bishop'
         self.colour = colour
         if self.colour == 'white':
-            self.image = pygame.image.load('white bishop.png')
+            self.image = pygame.image.load('images/white bishop.png')
         else:
-            self.image = pygame.image.load('black bishop.png')
+            self.image = pygame.image.load('images/black bishop.png')
 
     def check_moves(self, row, column, board):
         moves = []
@@ -171,9 +171,9 @@ class Queen:
         self.name = colour + ' queen'
         self.colour = colour
         if self.colour == 'white':
-            self.image = pygame.image.load('white queen.png')
+            self.image = pygame.image.load('images/white queen.png')
         else:
-            self.image = pygame.image.load('black queen.png')
+            self.image = pygame.image.load('images/black queen.png')
 
     def check_moves(self, row, column, board):
         moves = []
@@ -231,9 +231,9 @@ class King:
         self.initial = True
         self.checked = False
         if self.colour == 'white':
-            self.image = pygame.image.load('white king.png')
+            self.image = pygame.image.load('images/white king.png')
         else:
-            self.image = pygame.image.load('black king.png')
+            self.image = pygame.image.load('images/black king.png')
 
     def check_moves(self, row, column, board):
         moves = []
