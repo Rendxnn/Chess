@@ -30,7 +30,7 @@ def main():
             row = position[1] // 60
             column = position[0] // 60
             if board[selected[0]][selected[1]] and (row, column) in board[selected[0]][selected[1]].check_moves(selected[0], selected[1], board):
-                if board[selected[0]][selected[1]] and type(board[selected[0]][selected[1]]) == pieces.Pawn:
+                if board[selected[0]][selected[1]] and type(board[selected[0]][selected[1]]) in [pieces.Rook, pieces.King, pieces.Pawn]:
                     board[selected[0]][selected[1]].initial = False
                 board[selected[0]][selected[1]], board[row][column] = None, board[selected[0]][selected[1]]
                 turn += 1
@@ -46,7 +46,7 @@ def initialize_board():
     order = [pieces.Rook, pieces.Knight, pieces.Bishop, pieces.Queen,
              pieces.King, pieces.Bishop, pieces.Knight, pieces.Rook]
 
-    for piece in range(len(order)):
+    for piece in range(8):
         board[7][piece] = order[piece]('white')
         board[6][piece] = pieces.Pawn('white')
 
