@@ -243,3 +243,11 @@ class King:
                     if not board[row + i][column + j] or board[row + i][column + j].colour != self.colour:
                         moves.append((row + i, column + j))
         return moves
+
+    def check_castle(self, row, column, board, rook_column):
+        if self.initial and board[row][rook_column].initial:
+            for square in range(min(column, rook_column) + 1, max(column, rook_column)):
+                if board[row][square]:
+                    return False
+            return True
+        return False

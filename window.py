@@ -13,8 +13,3 @@ def display(board):
             if board[row][piece]:
                 window.blit(board[row][piece].image, (piece * 60, row * 60))
     pygame.display.update()
-
-
-
-
-
