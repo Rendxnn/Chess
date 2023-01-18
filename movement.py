@@ -51,3 +51,7 @@ def castle(board, selected, row, column, turn):
 
             turn += 1
     return board, turn
+
+
+def promotion(board, selected, row, column, turn):
+    pass
