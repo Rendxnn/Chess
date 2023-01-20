@@ -239,7 +239,7 @@ class King:
         for i in range(1, 8):
             if up and row - i >= 0:
                 if board[row - i][column] and board[row - i][column].colour != self.colour and type(
-                        board[row - i][column]) in [pieces.Rook, pieces.Queen]:
+                        board[row - i][column]) in [Rook, Queen]:
                     return True
                 elif board[row - i][column]:
                     up = False
