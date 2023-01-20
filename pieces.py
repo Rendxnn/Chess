@@ -1,6 +1,7 @@
 import pygame
 
 
+
 class Pawn:
     def __init__(self, colour):
         self.name = colour + ' pawn'
@@ -87,34 +88,14 @@ class Knight:
 
     def check_moves(self, row, column, board):
         moves = []
-        if row + 2 < 8:
-            if column + 1 < 8:
-                if not board[row + 2][column + 1] or board[row + 2][column + 1].colour != self.colour:
-                    moves.append((row + 2, column + 1))
-            if column - 1 >= 0:
-                if not board[row + 2][column - 1] or board[row + 2][column - 1].colour != self.colour:
-                    moves.append((row + 2, column - 1))
-        if row - 2 >= 0:
-            if column + 1 < 8:
-                if not board[row - 2][column + 1] or board[row - 2][column + 1].colour != self.colour:
-                    moves.append((row - 2, column + 1))
-            if column - 1 >= 0:
-                if not board[row - 2][column - 1] or board[row - 2][column - 1].colour != self.colour:
-                    moves.append((row - 2, column - 1))
-        if column + 2 < 8:
-            if row + 1 < 8:
-                if not board[row + 1][column + 2] or board[row + 1][column + 2].colour != self.colour:
-                    moves.append((row + 1, column + 2))
-            if row - 1 < 8:
-                if not board[row - 1][column + 2] or board[row - 1][column + 2].colour != self.colour:
-                    moves.append((row - 1, column + 2))
-        if column - 2 >= 0:
-            if row + 1 < 8:
-                if not board[row + 1][column - 2] or board[row + 1][column - 2].colour != self.colour:
-                    moves.append((row + 1, column - 2))
-            if row - 1 < 8:
-                if not board[row - 1][column - 2] or board[row - 1][column - 2].colour != self.colour:
-                    moves.append((row - 1, column - 2))
+        for i in range(-2, 3, 4):
+            for j in range(-1, 2, 2):
+                if 0 <= row + i < 8 and 0 <= column + j < 8:
+                    if not board[row + i][column + j] or board[row + i][column + j].colour != self.colour:
+                        moves.append((row + i, column + j))
+                if 0 <= row + j < 8 and 0 <= column + i < 8:
+                    if not board[row + j][column + i] or board[row + j][column + i].colour != self.colour:
+                        moves.append((row + j, column + i))
         return moves
 
 
@@ -250,4 +231,75 @@ class King:
                 if board[row][square]:
                     return False
             return True
+        return False
+
+    def check_checks(self, row, column, board):
+        left = right = up = down = True
+        upleft = upright = downleft = downright = True
+        for i in range(1, 8):
+            if up and row - i >= 0:
+                if board[row - i][column] and board[row - i][column].colour != self.colour and type(
+                        board[row - i][column]) in [pieces.Rook, pieces.Queen]:
+                    return True
+                elif board[row - i][column]:
+                    up = False
+            if down and row + i < len(board):
+                if board[row + i][column] and board[row + i][column].colour != self.colour and type(
+                        board[row + i][column]) in [Rook, Queen]:
+                    return True
+                elif board[row + i][column]:
+                    down = False
+            if left and column - i >= 0:
+                if board[row][column - i] and board[row][column - i].colour != self.colour and type(
+                        board[row][column - i]) in [Rook, Queen]:
+                    return True
+                elif board[row][column - i]:
+                    left = False
+            if right and column + i < len(board):
+                if board[row][column + i] and board[row][column + i].colour != self.colour and type(
+                        board[row][column + i]) in [Rook, Queen]:
+                    return True
+                elif board[row][column + i]:
+                    right = False
+
+            if upleft and row - i >= 0 and column - i >= 0:
+                if board[row - i][column - i] and board[row - i][column - i].colour != self.colour and (
+                        type(board[row - i][column - i]) in [Bishop, Queen] or (
+                        type(board[row - i][column - i]) == Pawn and i == 1)):
+                    return True
+                elif board[row - i][column - i] and board[row - i][column - i].colour == self.colour:
+                    upleft = False
+
+            if upright and row - i >= 0 and column + i < 8:
+                if board[row - i][column + i] and board[row - i][column + i].colour != self.colour and (
+                        type(board[row - i][column + i]) in [Bishop, Queen] or (
+                        type(board[row - i][column + i]) == Pawn and i == 1)):
+                    return True
+                elif board[row - i][column + i] and board[row - i][column + i].colour == self.colour:
+                    upright = False
+
+            if downleft and column - i >= 0 and row + i < 8:
+                if board[row + i][column - i] and board[row + i][column - i].colour != self.colour and (
+                        type(board[row + i][column - i]) in [Bishop, Queen] or (
+                        type(board[row + i][column - i]) == Pawn and i == 1)):
+                    return True
+                elif board[row + i][column - i] and board[row + i][column - i].colour == self.colour:
+                    downleft = False
+
+            if downright and column + i < len(board) and row + i < 8:
+                if board[row + i][column + i] and board[row + i][column + i].colour != self.colour and (
+                        type(board[row + i][column + i]) in [Bishop, Queen] or (
+                        type(board[row + i][column + i]) == Pawn and i == 1)):
+                    return True
+                elif board[row + i][column + i] and board[row + i][column + i].colour == self.colour:
+                    downright = False
+
+        for i in range(-2, 3, 4):
+            for j in range(-1, 2, 2):
+                if 0 <= row + i < 8 and 0 <= column + j < 8:
+                    if board[row + i][column + j] and board[row + i][column + j].colour != self.colour and type(board[row + i][column + j]) == Knight:
+                        return True
+                if 0 <= row + j < 8 and 0 <= column + i < 8:
+                    if board[row + j][column + i] and board[row + j][column + i].colour != self.colour and type(board[row + j][column + i]) == Knight:
+                        return True
         return False

@@ -18,7 +18,7 @@ def main():
                 sys.exit()
         window.display(board)
         clicked = pygame.mouse.get_pressed(3)[0]
-
+        print(board[0][4].check_checks(0, 4, board))
         if (clicked and not last) or not selected or not board[selected[0]][selected[1]]:
             position = pygame.mouse.get_pos()
             row = position[1] // 60
@@ -32,6 +32,7 @@ def main():
             position = pygame.mouse.get_pos()
             row = position[1] // 60
             column = position[0] // 60
+            last = False
             board, turn = move.make_move(board, selected, row, column, turn)
 
         elif not clicked and last:
