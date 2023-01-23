@@ -3,14 +3,15 @@ import pygame
 import sys
 import pieces
 import movement as move
+import player
 
 
 def main():
     board = initialize_board()
     selected = None
     last = False
-    turn = 1
-
+    players = [player.Player("white"), player.Player('bLack')]
+    turn_counter = 0
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -18,7 +19,6 @@ def main():
                 sys.exit()
         window.display(board)
         clicked = pygame.mouse.get_pressed(3)[0]
-        print(board[0][4].check_checks(0, 4, board))
         if (clicked and not last) or not selected or not board[selected[0]][selected[1]]:
             position = pygame.mouse.get_pos()
             row = position[1] // 60
@@ -27,13 +27,13 @@ def main():
             last = clicked
 
         if not clicked and last and board[selected[0]][selected[1]] and (
-                (turn % 2 != 0 and board[selected[0]][selected[1]].colour == 'white') or (
-                turn % 2 == 0 and board[selected[0]][selected[1]].colour == 'black')):
+                (turn_counter % 2 == 0 and board[selected[0]][selected[1]].colour == 'white') or (
+                turn_counter % 2 != 0 and board[selected[0]][selected[1]].colour == 'black')):
             position = pygame.mouse.get_pos()
             row = position[1] // 60
             column = position[0] // 60
             last = False
-            board, turn = move.make_move(board, selected, row, column, turn)
+            board, turn_counter, players = move.make_move(board, selected, row, column, turn_counter, players)
 
         elif not clicked and last:
             selected = None

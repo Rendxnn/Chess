@@ -11,11 +11,11 @@ def check_all_possible(board, colour):
     return possible_moves
 
 
-def make_move(board, selected, row, column, turn):
+def make_move(board, selected, row, column, turn_counter, players):
     if board[selected[0]][selected[1]] and board[row][column] and type(
             board[selected[0]][selected[1]]) == pieces.King and type(board[row][column]) == pieces.Rook and \
             board[selected[0]][selected[1]].colour == board[row][column].colour and row == selected[0]:
-        board, turn = castle(board, selected, row, column, turn)
+        board, turn_counter, players = castle(board, selected, row, column, turn_counter, players)
 
     elif (row, column) in board[selected[0]][selected[1]].check_moves(selected[0], selected[1], board) and type(
             board[selected[0]][selected[1]]) == pieces.Pawn and (
@@ -24,7 +24,7 @@ def make_move(board, selected, row, column, turn):
         board[selected[0]][selected[1]], board[row][column] = None, board[selected[0]][selected[1]]
         prom = window.display_promotion(board[row][column].colour)
         board[row][column] = prom
-        turn += 1
+        turn_counter += 1
 
     elif board[selected[0]][selected[1]] and (row, column) in board[selected[0]][selected[1]].check_moves(
             selected[0], selected[1], board):
@@ -33,15 +33,19 @@ def make_move(board, selected, row, column, turn):
                                                                                          pieces.Pawn] and \
                 board[selected[0]][selected[1]].initial:
             board[selected[0]][selected[1]].initial = False
+            if type(board[selected[0]][selected[1]].initial) == pieces.King:
+                players[turn_counter % 2] = (row, column)
+
         board[selected[0]][selected[1]], board[row][column] = None, board[selected[0]][selected[1]]
-        turn += 1
+        turn_counter += 1
 
-    return board, turn
+    return board, turn_counter, players
 
 
-def castle(board, selected, row, column, turn):
+def castle(board, selected, row, column, turn_counter, players):
     if board[selected[0]][selected[1]].check_castle(selected[0], selected[1], board, column):
         if column > selected[1]:
+            players[turn_counter % 2] = (row, column - 1)
             board[row][selected[1] + 1] = board[row][column]
             board[row][column - 1] = board[row][selected[1]]
             board[row][column] = None
@@ -50,8 +54,9 @@ def castle(board, selected, row, column, turn):
             board[row][selected[1] + 1].initial = False
             board[row][column - 1].initial = False
 
-            turn += 1
+            turn_counter += 1
         elif column < selected[1]:
+            players[turn_counter % 2] = (row, column + 2)
             board[row][selected[1] - 1] = board[row][column]
             board[row][column + 2] = board[row][selected[1]]
             board[row][column] = None
@@ -60,8 +65,8 @@ def castle(board, selected, row, column, turn):
             board[row][selected[1] - 1].initial = False
             board[row][column + 2].initial = False
 
-            turn += 1
-    return board, turn
+            turn_counter += 1
+    return board, turn_counter, players
 
 
 def promotion(board, selected, row, column, turn):

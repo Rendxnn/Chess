@@ -296,9 +296,11 @@ class King:
         for i in range(-2, 3, 4):
             for j in range(-1, 2, 2):
                 if 0 <= row + i < 8 and 0 <= column + j < 8:
-                    if board[row + i][column + j] and board[row + i][column + j].colour != self.colour and type(board[row + i][column + j]) == Knight:
+                    if board[row + i][column + j] and board[row + i][column + j].colour != self.colour and type(
+                            board[row + i][column + j]) == Knight:
                         return True
                 if 0 <= row + j < 8 and 0 <= column + i < 8:
-                    if board[row + j][column + i] and board[row + j][column + i].colour != self.colour and type(board[row + j][column + i]) == Knight:
+                    if board[row + j][column + i] and board[row + j][column + i].colour != self.colour and type(
+                            board[row + j][column + i]) == Knight:
                         return True
         return False
