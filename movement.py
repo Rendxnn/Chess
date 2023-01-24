@@ -67,9 +67,3 @@ def castle(board, selected, row, column, turn_counter, players):
 
             turn_counter += 1
     return board, turn_counter, players
-
-
-def promotion(board, selected, row, column, turn):
-    pass
-
-

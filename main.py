@@ -33,6 +33,9 @@ def main():
             row = position[1] // 60
             column = position[0] // 60
             last = False
+            current_board = board
+            current_players = players
+            current_player = players[turn_counter % 2]
             board, turn_counter, players = move.make_move(board, selected, row, column, turn_counter, players)
 
         elif not clicked and last:
