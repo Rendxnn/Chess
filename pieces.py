@@ -6,7 +6,7 @@ class Pawn:
         self.name = colour + ' pawn'
         self.colour = colour
         self.initial = True
-        self.en_passant = False
+        self.en_passant = 0
         if self.colour == 'white':
             self.image = pygame.image.load('images/white pawn.png')
         else:

@@ -21,16 +21,19 @@ def make_move(board, selected, row, column, turn_counter, players):
 
     elif board[selected[0]][selected[1]] and (row, column) in board[selected[0]][selected[1]].check_moves(
             selected[0], selected[1], board):
-        if type(board[selected[0]][selected[1]]) in [pieces.Rook, pieces.King, pieces.Pawn] and \
-                board[selected[0]][selected[1]].initial:
-            board[selected[0]][selected[1]].initial = False
+        if type(board[selected[0]][selected[1]]) in [pieces.Rook, pieces.King, pieces.Pawn]:
+            if board[selected[0]][selected[1]].initial:
+                board[selected[0]][selected[1]].initial = False
             if type(board[selected[0]][selected[1]]) == pieces.King:
+                print('moved king')
                 players[turn_counter % 2].king = (row, column)
+            if type(board[selected[0]][selected[1]]) == pieces.Pawn and row == selected[0] + 2:
+                board[selected[0]][selected[1]].en_passant = turn_counter
 
         board[selected[0]][selected[1]], board[row][column] = None, board[selected[0]][selected[1]]
         turn_counter += 1
 
-    print(players[(turn_counter - 1) % 2].king)
+    print('king', players[(turn_counter - 1) % 2].colour, players[(turn_counter - 1) % 2].king)
     kingx, kingy = players[(turn_counter - 1) % 2].king
     if board[kingx][kingy].check_checks(kingx, kingy, board):
         board = current_board
@@ -65,3 +68,7 @@ def castle(board, selected, row, column, turn_counter, players):
 
             turn_counter += 1
     return board, turn_counter, players
+
+
+def en_passant(selected, row, column, board):
+    pass
