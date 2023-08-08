@@ -19,25 +19,22 @@ def main():
                 sys.exit()
         window.display(board)
         clicked = pygame.mouse.get_pressed(3)[0]
-        if (clicked and not last) or not selected or not board[selected[0]][selected[1]]:
-            position = pygame.mouse.get_pos()
-            row = position[1] // 60
-            column = position[0] // 60
-            selected = row, column
-            last = clicked
-
-        if not clicked and last and board[selected[0]][selected[1]] and (
-                (turn_counter % 2 == 0 and board[selected[0]][selected[1]].colour == 'white') or (
-                turn_counter % 2 != 0 and board[selected[0]][selected[1]].colour == 'black')):
-            position = pygame.mouse.get_pos()
-            row = position[1] // 60
-            column = position[0] // 60
-            last = False
-            board, turn_counter, players = move.make_move(board, selected, row, column, turn_counter, players)
-
-        elif not clicked and last:
-            selected = None
-            last = False
+        if clicked:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            row, column = mouse_y // 60, mouse_x // 60
+            piece = board[row][column]
+            white_turn = turn_counter % 2 == 0
+            if piece is not None and ((piece.colour == 'white' and white_turn) or piece.colour == 'black' and not white_turn):
+                selected_piece = board[row][column]
+                last_board = [row.copy() for row in board]
+                board[row][column] = None
+                while clicked:
+                    clicked = pygame.mouse.get_pressed(3)[0]
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    window.display_dragging(board, selected_piece, mouse_x, mouse_y)
+                released_x, released_y = pygame.mouse.get_pos()
+                row_released, column_released = released_y // 60, released_x // 60
+                board, turn_counter, players = move.make_move(last_board, (row, column), row_released, column_released, turn_counter, players)
 
 
 def initialize_board():
@@ -45,14 +42,15 @@ def initialize_board():
     order = [pieces.Rook, pieces.Knight, pieces.Bishop, pieces.Queen,
              pieces.King, pieces.Bishop, pieces.Knight, pieces.Rook]
 
-    for piece in range(8):
-        board[7][piece] = order[piece]('white')
-        board[6][piece] = pieces.Pawn('white')
+    for i in range(8):
+        board[7][i] = order[i]('white')
+        board[6][i] = pieces.Pawn('white')
 
-        board[1][piece] = pieces.Pawn('black')
-        board[0][piece] = order[piece]('black')
+        board[1][i] = pieces.Pawn('black')
+        board[0][i] = order[i]('black')
 
     return board
 
 
 main()
+

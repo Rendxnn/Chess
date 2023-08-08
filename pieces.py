@@ -12,6 +12,9 @@ class Pawn:
         else:
             self.image = pygame.image.load('images/black pawn.png')
 
+    def __str__(self):
+        return self.name
+
     def check_moves(self, row, column, board):
         moves = []
         if self.colour == 'white':
@@ -24,7 +27,7 @@ class Pawn:
             if column + 1 < len(board) and board[row - 1][column + 1] and board[row - 1][column + 1].colour == 'black':
                 moves.append((row - 1, column + 1))
         else:
-            if self.initial:
+            if self.initial and board[row + 1][column] is None and board[row + 2][column] is None:
                 moves.append((row + 2, column))
             if not board[row + 1][column]:
                 moves.append((row + 1, column))
@@ -44,6 +47,9 @@ class Rook:
             self.image = pygame.image.load('images/white rook.png')
         else:
             self.image = pygame.image.load('images/black rook.png')
+
+    def __str__(self):
+        return self.name
 
     def check_moves(self, row, column, board):
         moves = []
@@ -85,6 +91,9 @@ class Knight:
         else:
             self.image = pygame.image.load('images/black knight.png')
 
+    def __str__(self):
+        return self.name
+
     def check_moves(self, row, column, board):
         moves = []
         for i in range(-2, 3, 4):
@@ -106,6 +115,9 @@ class Bishop:
             self.image = pygame.image.load('images/white bishop.png')
         else:
             self.image = pygame.image.load('images/black bishop.png')
+
+    def __str__(self):
+        return self.name
 
     def check_moves(self, row, column, board):
         moves = []
@@ -154,6 +166,9 @@ class Queen:
             self.image = pygame.image.load('images/white queen.png')
         else:
             self.image = pygame.image.load('images/black queen.png')
+
+    def __str__(self):
+        return self.name
 
     def check_moves(self, row, column, board):
         moves = []
@@ -214,6 +229,9 @@ class King:
             self.image = pygame.image.load('images/white king.png')
         else:
             self.image = pygame.image.load('images/black king.png')
+
+    def __str__(self):
+        return self.name
 
     def check_moves(self, row, column, board):
         moves = []
