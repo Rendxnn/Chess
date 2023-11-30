@@ -32,8 +32,6 @@ def make_move(board, selected, row, column, turn_counter, players):
 
         board[selected[0]][selected[1]], board[row][column] = None, board[selected[0]][selected[1]]
         turn_counter += 1
-
-    print('king', players[(turn_counter - 1) % 2].colour, players[(turn_counter - 1) % 2].king)
     kingx, kingy = players[(turn_counter - 1) % 2].king
     if board[kingx][kingy].check_checks(kingx, kingy, board):
         board = current_board
