@@ -4,6 +4,9 @@ Un juego de ajedrez simple hecho en Python con Pygame. Permite jugar con dos per
 
 ![Tablero](<images/board.png>)
 
+<img width="478" height="480" alt="image" src="https://github.com/user-attachments/assets/4ff6618e-8cb8-46c7-8fb9-3b8ada39f005" />
+
+
 ---
 
 ## Requisitos
@@ -85,27 +88,3 @@ Piezas individuales (negras):
 - Selección/arrastre: al presionar clic izquierdo sobre una pieza del turno actual se quita del tablero temporalmente y se dibuja su sprite siguiendo el ratón hasta soltar.
 - Promoción: al promover, se muestra una ventana temporal con 4 opciones (Dama, Torre, Alfil, Caballo) y se reemplaza el peón por la selección elegida.
 - Validación de jaque: tras cada movimiento, si el rey del jugador que movió queda en jaque, se revierte el movimiento.
-
-## Solución a parpadeo (si lo ves)
-
-Si notas parpadeo en la ventana, asegúrate de:
-
-- Usar Pygame 2.x y Python actualizados.
-- Ejecutar el juego desde la raíz del proyecto (para que las rutas de imágenes sean válidas).
-- En Windows, probar ejecutar en modo ventana normal (no maximizada) si tu compositor presenta tearing.
-
-Este repositorio ya optimiza la creación de ventana y cacheo de imágenes para minimizar flicker.
-
-## Contribuir
-
-¡Se aceptan mejoras! Ideas útiles:
-
-- Implementar en passant y detección de jaque mate/tablas.
-- Resaltar movimientos legales y últimas jugadas.
-- Sonidos, cronómetro y puntuación de capturas.
-- Tests simples para reglas de movimiento.
-
-## Créditos
-
-- Código original del autor del repositorio.
-- Sprites incluidos en `images/` (créditos según correspondan si se añadiera una licencia específica).
