@@ -2,8 +2,6 @@
 
 Un juego de ajedrez simple hecho en Python con Pygame. Permite jugar con dos personas en la misma máquina, arrastrando y soltando las piezas sobre un tablero de 8x8. Implementa movimientos legales básicos, enroque y promoción.
 
-![Tablero](<images/board.png>)
-
 <img width="478" height="480" alt="image" src="https://github.com/user-attachments/assets/4ff6618e-8cb8-46c7-8fb9-3b8ada39f005" />
 
 
